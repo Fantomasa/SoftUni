@@ -1,0 +1,32 @@
+{{loginForm.value | json}}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> <a routerLink="/login">Sign In</a></h2>
+    <h2 class="inactive underlineHover"><a routerLink="/register">Register</a></h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../assets/icons/user.jpg" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form #loginForm="ngForm" (ngSubmit)="loginHandler(loginForm.value)">
+      <div>
+        <input ngModel name="email" type="text" required id="login" class="fadeIn second" placeholder="Email">
+      </div>
+
+      <div>
+        <input ngModel name="password" type="password" required id="password" class="fadeIn third" name="password"
+          placeholder="Passowrd">
+      </div>
+      <button class="fadeIn fourth">LogIn</button>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" routerLink="/forgotpass">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>

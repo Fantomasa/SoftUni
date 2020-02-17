@@ -1,0 +1,18 @@
+{{forgotForm.value | json}}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../assets/icons/password.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form #forgotForm="ngForm" (ngSubmit)="forgotPassHandler(forgotForm.value)">
+      <div>
+        <input ngModel name="email" type="text" required id="email" class="fadeIn third" name="email"
+          placeholder="Email">
+      </div>
+      <button class="fadeIn fourth">Recover</button>
+    </form>
+  </div>
+</div>
