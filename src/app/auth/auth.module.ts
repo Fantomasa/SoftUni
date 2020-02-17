@@ -8,6 +8,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InfoComponent } from './info/info.component';
+import { ToastrModuleExport } from '../toastr/toastr.module';
 
 var config = {
   apiKey: "AIzaSyBZzjG-8VTEk3zvf1ZIKKvXgQJSy2O7WZk",
@@ -27,7 +28,8 @@ var config = {
     FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ToastrModuleExport
   ],
   exports: [
     LoginComponent,
