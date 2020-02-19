@@ -3,48 +3,50 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
 import { UserInfo } from './shared/userinfo';
 import { ToastrServiceExport } from '../toastr/toastr.service';
-import { User } from 'firebase';
+import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
-  private dbPath = '/users';
+  private dbPath = '/users-info';
 
   currentUserRef: AngularFireList<UserInfo> = null;
+  currentUser: UserInfo;
 
   constructor(
     public db: AngularFireDatabase,
     public toastr: ToastrServiceExport
   ) {
     this.currentUserRef = db.list(this.dbPath);
+    if (this.currentUser == undefined) {
+      this.currentUser = new UserInfo('', '', '', '', '');
+    } else {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
   }
 
-  // getUserDetail(id: string): AngularFireObject<UserInfo>{
-  //    //return this.db.object<User>(this.dbPath + '/' + '-M0OZLBE4Ws2tNKxSeJ6').valueChanges().subscribe();
-  // }
-
-  // getCurrentUserInfo(key: string): AngularFireObject<UserInfo> {
-  //   return this.currentUserRef.
-  // }
-
-  createUserInfo(userinfo: UserInfo): void {
-    this.currentUserRef.push(userinfo);
+  getUserInfo(userId: string) {
+    return this.db.object(this.dbPath + '/' + userId).snapshotChanges();
   }
 
-  updateUserInfo(key: string, value: any): Promise<void>{
+  createUserInfo(userinfo: UserInfo) {
+    return this.currentUserRef.push(userinfo);
+  }
+
+  updateUserInfo(key: string, value: UserInfo): Promise<void> {
     return this.currentUserRef.update(key, value);
   }
 
-  deleteUserInfo(key: string): Promise<void>{
+  deleteUserInfo(key: string): Promise<void> {
     return this.currentUserRef.remove(key);
   }
 
-  getCurrentUsersInfo(): AngularFireList<UserInfo>{
+  getCurrentUsersInfo(): AngularFireList<UserInfo> {
     return this.currentUserRef;
   }
 
-  deleteAllUsersInfo(): Promise<void>{
+  deleteAllUsersInfo(): Promise<void> {
     return this.currentUserRef.remove();
   }
 }

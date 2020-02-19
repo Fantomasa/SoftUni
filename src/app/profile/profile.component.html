@@ -4,18 +4,18 @@
         <!-- Login Form -->
         <form #profileForm="ngForm" (ngSubmit)="updateInfoHandler(profileForm.value)">
             <div>
-                <input ngModel name="name" type="text" required class="fadeIn second" placeholder="{{currentUser.name || 'Name'}}">
+                <input ngModel name="name" type="text" required class="fadeIn second" placeholder="{{currentUser?.name || 'Name'}}">
             </div>            
             <div>
-                <input ngModel name="ltName" type="text" required class="fadeIn second" placeholder="{{currentUser.lastname || 'LastName'}}">
+                <input ngModel name="ltName" type="text" required class="fadeIn second" placeholder="{{currentUser?.lastname || 'LastName'}}">
             </div>
 
             <div>
-                <input ngModel name="phone" type="text" required class="fadeIn second" placeholder="{{currentUser.phone || 'Phone'}}">
+                <input ngModel name="phone" type="text" required class="fadeIn second" placeholder="{{currentUser?.phone || 'Phone'}}">
             </div>
 
             <div>
-                <input ngModel name="city" type="text" required class="fadeIn second" placeholder="{{currentUser.city || 'City'}}">
+                <input ngModel name="city" type="text" required class="fadeIn second" placeholder="{{currentUser?.city || 'City'}}">
             </div>
 
             <button class="fadeIn fourth">Update</button>

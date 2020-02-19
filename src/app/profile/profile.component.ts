@@ -3,7 +3,6 @@ import { UserInfo } from '../upload/shared/userinfo';
 import { User } from 'firebase';
 import { AuthService } from '../auth/auth.service';
 import { UploadService } from '../upload/upload.service';
-import { clearScreenDown } from 'readline';
 
 @Component({
   selector: 'app-profile',
@@ -19,19 +18,37 @@ export class ProfileComponent implements OnInit {
     private uploadService: UploadService
   ) {
     this.user = authService.user;
-    this.currentUser = new UserInfo(this.user.email, '', '', '', '');     
+    this.currentUser = this.uploadService.currentUser;
+
+    if (this.uploadService.currentUser.key != '') {
+      this.uploadService.getUserInfo(this.currentUser.key);
+    }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+  }
 
+  updateActive(isActive: boolean) {
   }
 
   updateInfoHandler({ name, ltName, phone, city }) {
-    this.currentUser.city = city;
-    this.currentUser.name = name;
-    this.currentUser.lastname = ltName;
-    this.currentUser.phone = phone;
+    if (this.uploadService.currentUser?.key != '') {
+      this.uploadService.currentUser.city = city;
+      this.uploadService.currentUser.name = name;
+      this.uploadService.currentUser.lastname = ltName;
+      this.uploadService.currentUser.phone = phone;
 
-    this.uploadService.createUserInfo(this.currentUser);
+      this.uploadService.updateUserInfo(this.currentUser.key, this.currentUser);
+    } else {
+      this.uploadService.currentUser.city = city;
+      this.uploadService.currentUser.name = name;
+      this.uploadService.currentUser.lastname = ltName;
+      this.uploadService.currentUser.phone = phone;
+
+      let result = this.uploadService.createUserInfo(this.currentUser)
+      this.uploadService.currentUser.key = result.key;
+    }
+
+    localStorage.setItem('currentUser', JSON.stringify(this.uploadService.currentUser));
   }
 }
