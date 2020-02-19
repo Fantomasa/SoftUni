@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBZzjG-8VTEk3zvf1ZIKKvXgQJSy2O7WZk",
+    authDomain: "roraweb.firebaseapp.com",
+    databaseURL: "https://roraweb.firebaseio.com",
+    projectId: "roraweb",
+    storageBucket: "roraweb.appspot.com",
+    messagingSenderId: "585128718851",
+    appId: "1:585128718851:web:9aff2486fda313335b1436",
+    measurementId: "G-40ZDC7E6FZ"
+  }
 };
 
 /*

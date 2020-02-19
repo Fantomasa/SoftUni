@@ -12,4 +12,8 @@ export class ToastrServiceExport {
   showSuccess(mainMessage: string, message: string) {
     this.toastr.success(mainMessage, message);
   }
+
+  showError(mainMessage: string, message: string) {
+    this.toastr.error(mainMessage, message);
+  }
 }

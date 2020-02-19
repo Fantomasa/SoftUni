@@ -23,11 +23,15 @@ export class AuthService {
 
   async login(email: string, password: string) {
     var result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    return result;
   }
 
   async register(email: string, password: string) {
     var result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    
     this.sendEmailVerification();
+
+    return result;
   }
 
   async sendEmailVerification() {

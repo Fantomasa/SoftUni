@@ -21,8 +21,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginHandler({ email, password }) {
-    this.authService.login(email, password);
-    this.router.navigate(['gallery']);
-    this.toastr.showSuccess('Successfull loggedIn', '');
+    let result = this.authService.login(email, password);
+    result
+      .then(() => {
+        this.router.navigate(['gallery']);
+        this.toastr.showSuccess('Successfully logged In!', '');
+      })
+      .catch(error => this.toastr.showError(error.message, ''));    
   }
 }
