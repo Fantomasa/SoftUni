@@ -4,6 +4,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User } from 'firebase';
 import { UserInfo } from '../upload/shared/userinfo';
+import { ToastrServiceExport } from '../toastr/toastr.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ import { UserInfo } from '../upload/shared/userinfo';
 export class AuthService {
   user: User;
 
-  constructor(public afAuth: AngularFireAuth, public router: Router) {
+  constructor(
+    public afAuth: AngularFireAuth, 
+    public router: Router,
+    private toastr: ToastrServiceExport
+  ) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
@@ -45,7 +50,9 @@ export class AuthService {
 
   async logout() {
     await this.afAuth.auth.signOut();
+    this.toastr.showSuccess("Successfully logged out!", "");
     localStorage.removeItem('user');
+    this.router.navigate(['']);
   }
 
   get isLoggedIn(): boolean {
