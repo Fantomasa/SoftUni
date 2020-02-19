@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User } from 'firebase';
+import { UserInfo } from '../upload/shared/userinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,10 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return user !== null;
+  }
+
+  saveUserEmailInStorage(email: string) {
+    let userInfo = new UserInfo(email, '', '', '', '');
+    localStorage.setItem('currentUser', JSON.stringify(userInfo));
   }
 }

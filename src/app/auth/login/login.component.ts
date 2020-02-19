@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ToastrServiceExport } from 'src/app/toastr/toastr.service';
+import { UserInfo } from 'src/app/upload/shared/userinfo';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrServiceExport   
-    ) { }
+    private toastr: ToastrServiceExport
+  ) { }
 
   ngOnInit() {
   }
@@ -24,9 +24,10 @@ export class LoginComponent implements OnInit {
     let result = this.authService.login(email, password);
     result
       .then(() => {
+        this.authService.saveUserEmailInStorage(email);
         this.router.navigate(['gallery']);
         this.toastr.showSuccess('Successfully logged In!', '');
       })
-      .catch(error => this.toastr.showError(error.message, ''));    
+      .catch(error => this.toastr.showError(error.message, ''));
   }
 }

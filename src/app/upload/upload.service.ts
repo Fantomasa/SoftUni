@@ -21,8 +21,6 @@ export class UploadService {
     this.currentUserRef = db.list(this.dbPath);
     if (this.currentUser == undefined) {
       this.currentUser = new UserInfo('', '', '', '', '');
-    } else {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
   }
 

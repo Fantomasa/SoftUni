@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
     let result = this.authService.register(email, password);
     result
       .then(() => {
+        this.authService.saveUserEmailInStorage(email);
         this.toastr.showSuccess("Successfully registered!", "Verification message is send!")
         this.router.navigate(['gallery']);
       })
